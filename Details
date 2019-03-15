@@ -1,0 +1,9 @@
+Embedded Systems analysis for the making of the system having Microcontroller : ARM7 , Display :  LCD,GPS/GSM using language Embedded C. and the cost estimation is done.
+The design of the circuit is made and the voltage supply circuit is made using step-down transformer.                                                                                                     This converts the voltage from 240 v/12 v .    
+The circuit uses Bridge and filter circuit followed by step down transformer to give constant DC supply to the controller .
+Done with the hardware connections and started with the software part. The required circuit was designed accordingly with an aim to control the circuit with an button.
+1) GSM: was developed as a digital system using time division multiple access (TDMA) technique for communication purpose. 
+2)GPS: is a satellite navigation system that furnishes location and time information in all climate conditions to the user. 
+Sensor used is  1) Heartbeat sensor:Here we are using heart beat sensor with LM358 circuits. It measures the change in volume of blood through any organ of the body which causes a change in the light intensity through that organ (a vascular region).
+1)Arduino: single-board micro controller meant to make the application more accessible. This is the heart of the development board, which works as a mini computer and can receive as well as send information.
+2)LCD: Liquid crystal display is composed of several layers which include two polarised panel filters and electrodes.
