@@ -1,0 +1,94 @@
+SOFTWARE IMPLEMENTATION
+
+  Our project basically revolves around hardware components, so embeded-c is an easy way to interface the working of the hardware.
+  Arudino is a major component of our project. Hence we are using Arduino IDE (ver 1.8.3).
+  We are using arudino IDE. A guide on how to use and start a new project and on selection of tools (Port-COM1,COM2...), arduino UNO version is been mentioned in the PPT. 
+  We have implemented functions for each component.
+ 
+ Different modules are as follows:
+  1. LCD functions
+  2. GSM functions for sending and reciving messages.
+  3. GPS function for location, latitude and longitude get() and convert() functions with formulas.
+  
+  We are adding only code snippets the entire code will be published in our upcoming posts.
+  
+  
+  #include <LiquidCrystal.h>
+#include <stdio.h>
+#include <SoftwareSerial.h>
+
+SoftwareSerial mySerial(8, 9);
+
+LiquidCrystal lcd(6, 7, 5, 4, 3, 2);
+// defines pins numbers
+//New GPS GY-GPS6MV2
+
+
+int panic   = 11;
+int button  = A1;  //shock
+int heart   = 10;
+int relay   = 12;
+
+int dist1,dist2,dist3,sts1=0;
+
+long duration;
+int distanceCm, distanceInch;
+
+int hbtc=0,hbtc1=0,rtrl=0; // for heartbeat and relay
+
+ 
+ unsigned char rcv,count,gchr='x',gchr1='x',robos='s';
+ 
+ char rcvmsg[10],pastnumber[11];
+
+ 
+ char gpsval[50];
+
+
+\\....the variables...\\
+
+
+
+String inputString = "";         // a string to hold incoming data
+boolean stringComplete = false;  // whether the string is complete
+
+\\tells us if the given data ie. the mobile number is valid or not\\
+void okcheck()
+{
+  unsigned char rcr;
+  do{
+      rcr = Serial.read();
+    }while(rcr != 'K');
+}
+
+\\LCD displays these information\\
+void send_link()
+ {
+    Serial.write("AT+CMGS=\"");
+    Serial.write(pastnumber);
+    Serial.write("\"\r\n");  delay(2500);  
+    Serial.write("https://www.google.co.in/search?client=opera&q=");
+    for(ii=0;ii<=6;ii++){Serial.write(finallat[ii]);}
+    Serial.write("%2C");
+    for(ii=0;ii<=7;ii++){Serial.write(finallong[ii]);}
+    Serial.write(0x1A);delay(4000);delay(4000);
+ }
+
+  \\heartbeat functions\\
+    if(hbtc1 >= 75)
+       {digitalWrite(relay,LOW);
+        Serial.write("AT+CMGS=\"");
+        Serial.write(pastnumber);
+        Serial.write("\"\r\n"); delay(2500);
+        Serial.write("H.B:");converts(hbtc1);
+        Serial.write("  https://www.google.co.in/search?client=opera&q=");
+        for(ii=0;ii<=6;ii++){Serial.write(finallat[ii]);}
+        Serial.write("%2C");
+        for(ii=0;ii<=7;ii++){Serial.write(finallong[ii]);}
+        Serial.write(0x1A);      delay(4000);  delay(4000);
+  
+  
+references and learning: http://forum.arduino.cc/index.php?topic=223992.0
+                           https://forum.arduino.cc/index.php?topic=454058.0
+                           https://www.arduino.cc/en/Tutorial/SerialEvent
+  
