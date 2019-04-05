@@ -1,0 +1,47 @@
+//Panic Function//
+
+void loop() 
+{
+mn1:
+  for(rtrl=0;rtrl<10;rtrl++)
+     {
+      
+  if(digitalRead(panic) == LOW)
+    {
+      lcd.setCursor(7,0);lcd.print("ON ");
+      
+      Serial.write("AT+CMGS=\""); //command for GSM
+      Serial.write(pastnumber); //holds the registered number
+      Serial.write("\"\r\n"); delay(2500);
+      Serial.write("Panic:  ");//defines the panic mode i.e.....on or off
+      Serial.write("  https://www.google.co.in/search?client=opera&q=");// shares the GPS location
+      for(ii=0;ii<=6;ii++){Serial.write(finallat[ii]);}
+      Serial.write("%2C")
+      for(ii=0;ii<=7;ii++){Serial.write(finallong[ii]);}
+      Serial.write(0x1A); // LCD command     delay(4000);  delay(4000);   
+    }
+  if(digitalRead(panic) == HIGH)
+    {
+      lcd.setCursor(7,0);// set the cursor at that location 
+      lcd.print("OFF"); 
+    }  
+
+//Shock Function//
+
+  if(digitalRead(button) == LOW)
+    {
+      lcd.setCursor(4,1);//Initially sets the cursor at that location
+      lcd.print("ON ");//shock mode is set to ON mode
+      digitalWrite(relay, HIGH);//When a button is pressed, the relay will go HIGH
+      delay(3000);
+      delay(3000);
+      digitalWrite(relay, LOW);//After a delay, relay goes low and SHOCK mode will also go LOW
+      
+      /*
+      Serial.write("AT+CMGS=\"");//command on LCD display
+      Serial.write(pastnumber);//holds the registered number
+      Serial.write("\"\r\n"); delay(2500);
+      Serial.write("Shock:ON\r\n");//shock button is turned on
+      Serial.write(0x1A);    delay(4000); delay(4000);  
+      */
+    }
